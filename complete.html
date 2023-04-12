@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="shadow bg-gray-50 rounded-xl px-4 py-6">
+        <h1 class="text-center text-3xl font-bold uppercase">
+            <i class="fa-solid fa-cash-register"></i>
+            <span class="ml-2">
+                Payment Complete
+            </span>
+        </h1>
+
+        <div class="mt-4 text-center lg:mx-20">
+            {{ complete.text | raw }}
+        </div>
+    </div>
+{% endblock %}

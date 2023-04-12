@@ -1,0 +1,22 @@
+<div id="menu-{{ navlink.node_id }}" class="menu-dropdown hidden absolute z-10 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" tabindex="-1">
+    <div class="py-1" role="none">
+        {% for navlink in navlink.children %}
+            {% if navlink.children|length > 0 %}
+                <div class="hover:bg-gray-200 relative flex gap-2">
+                    <a href="#" onclick="toggleDropdown('{{ navlink.node_id }}')" class="flex items-center gap-2 text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+                        {{ navlink.name }}
+
+                        {% if navlink.children|length > 0 %}
+                            <i class="fa-solid fa-chevron-right"></i>
+                        {% endif %}
+                    </a>
+                    <div>
+                        {% include "menu-links.html" with {'navlink': navlink} %}
+                    </div>
+                </div>
+            {% else %}
+                <a href="products?tag={{ navlink.tag_query }}" class="hover:bg-gray-200 text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">{{ navlink.name }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
