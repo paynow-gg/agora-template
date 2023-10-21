@@ -1,20 +1,23 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ store.name }}</title>
 
     <script src="https://kit.fontawesome.com/9f19093a36.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://templates-cdn.paynow.gg/templates/214207081106907136/gifting.js"></script>
 
     <script>
         tailwind.config = {
-			theme: {
-				extend: {
-					colors: {
-						primary: '#8549e6'
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8549e6'
                     }
                 }
             }
@@ -24,100 +27,113 @@
     <script>
         // Dropdowns
         const toggleDropdown = (node_id) => {
-			//closeOtherDropdowns(`menu-${node_id}`);
+            //closeOtherDropdowns(`menu-${node_id}`);
 
             const el = document.getElementById(`menu-${node_id}`);
-			if (el) {
-				el.classList.toggle('hidden');
-			}
-        };
-
-		const closeOtherDropdowns = (current) => {
-			const els = document.getElementsByClassName('menu-dropdown');
-			for (let el of els) {
-				if (!el.classList.contains('hidden') && current !== el.id) {
-					el.classList.add('hidden');
-				}
-			}
-        };
-
-		const closeModal = () => {
-			const el = document.getElementById('modal');
-			if (!el.classList.contains('hidden')) {
-				el.classList.add('hidden');
+            if (el) {
+                el.classList.toggle('hidden');
             }
         };
 
-		window.onclick = function(event) {
-			const modal = document.getElementById('modal');
-			if (event.target === modal) {
-				modal.classList.add('hidden');
-			}
-		}
+        const closeOtherDropdowns = (current) => {
+            const els = document.getElementsByClassName('menu-dropdown');
+            for (let el of els) {
+                if (!el.classList.contains('hidden') && current !== el.id) {
+                    el.classList.add('hidden');
+                }
+            }
+        };
+
+        const closeModal = () => {
+            const el = document.getElementById('modal');
+            if (!el.classList.contains('hidden')) {
+                el.classList.add('hidden');
+            }
+        };
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        }
 
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="bg-[#D6D6D6] font-[Poppins]">
-<div class="my-10 mx-auto max-w-7xl px-6 lg:px-2">
+    <div class="my-10 mx-auto max-w-7xl px-6 lg:px-2">
 
-    <div id="modal" class="hidden flex justify-center items-center overflow-auto fixed z-10 left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.7)]">
-        <div id="modal-content" class="my-[15%] mx-auto w-[80%] lg:w-[40%] bg-white rounded-xl p-6">
+        <div id="modal"
+            class="hidden flex justify-center items-center overflow-auto fixed z-10 left-0 top-0 w-full h-full bg-[rgba(0,0,0,0.7)]">
+            <div id="modal-content" class="my-[15%] mx-auto w-[80%] lg:w-[40%] bg-white rounded-xl p-6">
 
+            </div>
         </div>
-    </div>
 
-    <div class="shadow flex justify-center items-center bg-gray-50 h-[10rem] p-6 rounded-xl">
-        <a href="/">
-            {% if store.logo_url %}
+        <div class="shadow flex justify-center items-center bg-gray-50 h-[10rem] p-6 rounded-xl">
+            <a href="/">
+                {% if store.logo_url %}
                 <img class="mx-auto h-[5rem]" alt="{{ store.name }}'s logo" src="{{ store.logo_url }}" />
-            {% else %}
+                {% else %}
                 <h1 class="text-gray-200 font-medium text-6xl">{{ store.name }}</h1>
-            {% endif %}
-        </a>
-    </div>
+                {% endif %}
+            </a>
+        </div>
 
-    <div class="grid grid-cols-12 gap-4 mt-4">
-        <div class="lg:col-span-9 col-span-12">
-            <div class="shadow bg-gray-50 rounded-xl p-4">
-                <ul class="inline-flex flex-wrap items-center h-full gap-6 tracking-wide">
-                    <li class="text-bold uppercase font-black hover:text-gray-400 {% if request.path == "/" %}text-primary hover:text-primary{% endif %}">
-                        <a href="/">
-                            Home
-                        </a>
-                    </li>
+        <div class="grid grid-cols-12 gap-4 mt-4">
+            <div class="lg:col-span-9 col-span-12">
+                <div class="shadow bg-gray-50 rounded-xl p-4">
+                    <ul class="inline-flex flex-wrap items-center h-full gap-6 tracking-wide">
+                        <li class="text-bold uppercase font-black hover:text-gray-400 {% if request.path == " /"
+                            %}text-primary hover:text-primary{% endif %}">
+                            <a href="/">
+                                Home
+                            </a>
+                        </li>
 
-                    {% for navlink in navlinks %}
-                        <li class="text-bold uppercase font-black hover:text-gray-400 {% if activeNavlink.node_id == navlink.node_id %}text-primary hover:text-primary{% endif %}">
+                        {% for navlink in navlinks %}
+                        <li
+                            class="text-bold uppercase font-black hover:text-gray-400 {% if activeNavlink.node_id == navlink.node_id %}text-primary hover:text-primary{% endif %}">
                             <div class="relative inline-block text-left">
-                                <a href="{% if navlink.children|length > 0 %}#{% else %}products?tag={{ navlink.tag_query }}{% endif %}" onclick="toggleDropdown('{{ navlink.node_id }}')">
+                                <a href="{% if navlink.children|length > 0 %}#{% else %}products?tag={{ navlink.tag_query }}{% endif %}"
+                                    onclick="toggleDropdown('{{ navlink.node_id }}')">
                                     {{ navlink.name }}
 
                                     {% if navlink.children|length > 0 %}
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                    <i class="fa-solid fa-chevron-down"></i>
                                     {% endif %}
                                 </a>
 
                                 {% if navlink.children|length > 0 %}
-                                    {% include 'menu-links.html' with {'navlink': navlink} only %}
+                                {% include 'menu-links.html' with {'navlink': navlink} only %}
                                 {% endif %}
                             </div>
                         </li>
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+
+                        <li class="text-bold uppercase font-black hover:text-gray-400">
+                            <a href="/subscriptions" {% if request.path=="/subscriptions" %}
+                                class="text-primary hover:text-primary" {% endif %}>
+                                My Subscriptions
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-2">
+                    {% block content %}{% endblock %}
+                </div>
             </div>
 
-            <div class="mt-2">
-                {% block content %}{% endblock %}
-            </div>
-        </div>
 
-
-        <div class="flex flex-col col-span-12 lg:col-span-3 gap-4">
-            {% if customer.id %}
+            <div class="flex flex-col col-span-12 lg:col-span-3 gap-4">
+                {% if customer.id %}
                 <a href="/cart">
                     <div class="shadow bg-sky-900 hover:bg-sky-800 rounded-xl p-4 text-white">
                         <div class="flex justify-between">
@@ -129,9 +145,11 @@
 
                                 <span>
                                     {% if cart.lines|length == 0 %}
-                                        <span>Your cart is empty!</span>
+                                    <span>Your cart is empty!</span>
                                     {% else %}
-                                        <span class="text-gray-300">{{ cart.lines|length }} item{% if cart.lines|length > 1 %}s{% endif %}</span> - <span class="font-bold">{{ cart.total | money }} {{ store.currency }}</span>
+                                    <span class="text-gray-300">{{ cart.lines|length }} item{% if cart.lines|length > 1
+                                        %}s{% endif %}</span> - <span class="font-bold">{{ cart.total | money }} {{
+                                        store.currency }}</span>
                                     {% endif %}
                                 </span>
                             </div>
@@ -139,18 +157,19 @@
                         </div>
                     </div>
                 </a>
-            {% else %}
+                {% else %}
                 <a href="/auth/sign-in">
                     <div class="shadow bg-sky-900 hover:bg-sky-800 rounded-xl p-4">
-                        <span class="flex gap-2 items-center text-lg uppercase font-black text-white opacity-90 hover:opacity-100">
+                        <span
+                            class="flex gap-2 items-center text-lg uppercase font-black text-white opacity-90 hover:opacity-100">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Sign in here
                         </span>
                     </div>
                 </a>
-            {% endif %}
+                {% endif %}
 
-            {% if customer.id %}
+                {% if customer.id %}
                 <a href="/auth/sign-out">
                     <div class="shadow bg-gray-800 text-white hover:bg-gray-700 rounded-xl p-2">
                         <div class="flex justify-between items-center pr-2">
@@ -169,62 +188,63 @@
                         </div>
                     </div>
                 </a>
-            {% endif %}
+                {% endif %}
 
-            {{ template.widgets | raw }}
+                {{ template.widgets | raw }}
+            </div>
         </div>
+
+        <footer class="mt-20">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="font-medium">© {{ store.name }} {{ 'now' | date('Y') }}</span>
+                </div>
+
+                <div class="flex justify-center gap-2">
+                    <a href="/legal/terms-of-service">Terms of Service</a>
+                    <span class="bg-gray-400 w-[1px]"></span>
+                    <a href="/legal/privacy-policy">Privacy Policy</a>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <footer class="mt-20">
-        <div class="flex items-center justify-between">
-            <div>
-                <span class="font-medium">© {{ store.name }} {{ 'now' | date('Y') }}</span>
-            </div>
-
-            <div class="flex justify-center gap-2">
-                <a href="/legal/terms-of-service">Terms of Service</a>
-                <span class="bg-gray-400 w-[1px]"></span>
-                <a href="/legal/privacy-policy">Privacy Policy</a>
-            </div>
-        </div>
-    </footer>
-</div>
 </body>
+
 </html>
 
 <!-- Gifting JS -->
 <script>
     function toggleGiftActions() {
-    var mainActions = document.getElementById('mainActions');
-    var giftActions = document.getElementById('giftActions');
+        var mainActions = document.getElementById('mainActions');
+        var giftActions = document.getElementById('giftActions');
 
-    if (mainActions && giftActions) {
-        mainActions.classList.toggle('hidden');
-        giftActions.classList.toggle('hidden');
-    } else {
-        console.error('Elements not found');
+        if (mainActions && giftActions) {
+            mainActions.classList.toggle('hidden');
+            giftActions.classList.toggle('hidden');
+        } else {
+            console.error('Elements not found');
+        }
     }
-}
 
-function isValidSteamID(steamid) {
-    var numericCheck = /^[0-9]+$/.test(steamid);
-    var lengthCheck = steamid.length >= 16 && steamid.length <= 20; // adjust as needed
+    function isValidSteamID(steamid) {
+        var numericCheck = /^[0-9]+$/.test(steamid);
+        var lengthCheck = steamid.length >= 16 && steamid.length <= 20; // adjust as needed
 
-    return numericCheck && lengthCheck;
-}
-
-function handlePurchase() {
-    var steamidInput = document.getElementById('steamidInput');
-    var steamid = steamidInput.value.trim();
-    var productSlug = document.querySelector("[data-product-slug]").getAttribute("data-product-slug");
-
-    if (isValidSteamID(steamid)) {
-        // Construct the checkout URL dynamically
-        var checkoutUrl = "/products/" + productSlug + "/checkout?gift_to=" + steamid;
-        window.location.href = checkoutUrl;
-    } else {
-        // Else, show an error popup
-        alert("Please enter a valid SteamID!");
+        return numericCheck && lengthCheck;
     }
-}
+
+    function handlePurchase() {
+        var steamidInput = document.getElementById('steamidInput');
+        var steamid = steamidInput.value.trim();
+        var productSlug = document.querySelector("[data-product-slug]").getAttribute("data-product-slug");
+
+        if (isValidSteamID(steamid)) {
+            // Construct the checkout URL dynamically
+            var checkoutUrl = "/products/" + productSlug + "/checkout?gift_to=" + steamid;
+            window.location.href = checkoutUrl;
+        } else {
+            // Else, show an error popup
+            alert("Please enter a valid SteamID!");
+        }
+    }
 </script>
