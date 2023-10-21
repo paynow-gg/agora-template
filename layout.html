@@ -191,3 +191,40 @@
 </div>
 </body>
 </html>
+
+<!-- Gifting JS -->
+<script>
+    function toggleGiftActions() {
+    var mainActions = document.getElementById('mainActions');
+    var giftActions = document.getElementById('giftActions');
+
+    if (mainActions && giftActions) {
+        mainActions.classList.toggle('hidden');
+        giftActions.classList.toggle('hidden');
+    } else {
+        console.error('Elements not found');
+    }
+}
+
+function isValidSteamID(steamid) {
+    var numericCheck = /^[0-9]+$/.test(steamid);
+    var lengthCheck = steamid.length >= 16 && steamid.length <= 20; // adjust as needed
+
+    return numericCheck && lengthCheck;
+}
+
+function handlePurchase() {
+    var steamidInput = document.getElementById('steamidInput');
+    var steamid = steamidInput.value.trim();
+    var productSlug = document.querySelector("[data-product-slug]").getAttribute("data-product-slug");
+
+    if (isValidSteamID(steamid)) {
+        // Construct the checkout URL dynamically
+        var checkoutUrl = "/products/" + productSlug + "/checkout?gift_to=" + steamid;
+        window.location.href = checkoutUrl;
+    } else {
+        // Else, show an error popup
+        alert("Please enter a valid SteamID!");
+    }
+}
+</script>
