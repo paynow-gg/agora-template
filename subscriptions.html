@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="my-10 mx-auto max-w-7xl px-6 lg:px-2 font-[Poppins]">
+
+    <!-- Subscriptions Panel -->
+    <div class="bg-gray-50 shadow-md rounded-xl p-6">
+        <div class="border-b border-gray-200 pb-4 mb-4">
+            <h1 class="text-xl font-bold">My Subscriptions</h1>
+        </div>
+
+        <!-- Subscriptions List -->
+        {% if subscriptions|length > 0 %}
+        <div class="space-y-4">
+            {% for subscription in subscriptions %}
+            <div class="flex justify-between bg-white p-4 rounded-lg shadow-sm hover:shadow-md">
+                <!-- Left Side (Info) -->
+                <div class="flex-1 space-y-2">
+                    <h3 class="text-lg font-semibold">{{ subscription.product_name }}</h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-white bg-primary px-2 py-1 rounded-md">{{ subscription.total_amount_str
+                            }}</span>
+                        <span class="text-white bg-gray-400 px-2 py-1 rounded-md">{{ subscription.status|capitalize
+                            }}</span>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <p>Interval: {{ subscription.interval_value }} {{ subscription.interval_scale }}</p>
+                        <p>Created At: <span class="text-gray-500">{{ subscription.created_at }}</span></p>
+                        <p>Active At: <span class="text-gray-500">{{ subscription.active_at }}</span></p>
+                        <p>Billing Email: {{ subscription.billing_email }}</p>
+                        {% if subscription.canceled_at %}
+                        <p>Canceled At: <span class="text-gray-500">{{ subscription.canceled_at }}</span></p>
+                        <p>Cancelled by: {{ subscription.cancel_reason|capitalize }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Right Side (Buttons) -->
+                <div class="flex items-center">
+                    {% if subscription.status == "active" %}
+                    <form action="/subscriptions/{{ subscription.id }}/cancel" method="post">
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Cancel
+                            Subscription</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-gray-500">No subscriptions to display.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
