@@ -1,68 +1,73 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="shadow bg-gray-50 rounded-xl px-4 py-6">
-        <h1 class="text-center text-3xl font-bold uppercase">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="ml-2">
+<div class="shadow bg-gray-50 rounded-xl px-4 py-6">
+    <h1 class="text-center text-3xl font-bold uppercase">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="ml-2">
                 Your cart
             </span>
-        </h1>
+    </h1>
 
-        <div class="flex flex-col lg:px-20 py-4 gap-4 mt-3">
-            {% if cart.lines|length == 0 %}
-                <h2 class="text-center mx-auto">Your cart is empty!</h2>
-            {% endif %}
+    <div class="flex flex-col lg:px-20 py-4 gap-4 mt-3">
+        {% if cart.lines|length == 0 %}
+        <h2 class="text-center mx-auto">Your cart is empty!</h2>
+        {% endif %}
 
 
-            {% for line in cart.lines %}
-                <div class="flex gap-4 justify-between bg-gray-100 rounded-2xl p-4">
+        {% for line in cart.lines %}
+        <div class="flex gap-4 justify-between bg-gray-100 rounded-2xl p-4">
 
-                    <div class="flex flex-col gap-4">
-                        <div class="flex flex-col">
-                            <span class="font-semibold text-xl lg:text-2xl uppercase tracking-wide">{{ line.name }}</span>
-                            <div class="flex gap-4 items-center tracking-wide font-medium text-gray-800">
-                                <span>Qty: {{ line.quantity }}</span>
-
-                                <div class="absolute flex gap-2 ml-16">
-                                    <a href="/cart/remove/{{ line.slug }}" class="flex justify-center items-center rounded-full bg-red-600 p-2 w-7 h-7"><i class="fa-solid fa-minus text-white"></i></a>
-                                    <a href="/cart/add/{{ line.slug }}" class="flex justify-center items-center rounded-full bg-green-600 p-2 w-7 h-7"><i class="fa-solid fa-plus text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col text-right">
-                        <span class="font-bold text-xl">{{ (line.price * line.quantity) | money }} {{ store.currency }}</span>
-                        {% if line.quantity > 1 %}
-                            <span class="text-gray-700 text-sm lg:text-base">{{ line.price | money }} {{ store.currency }} each</span>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% if cart.lines|length > 0 %}
-                <div class="mt-2 pt-2 border-t border-gray-400">
-                    <div class="flex justify-between">
-
-                        <div class="flex flex-col">
-                            <span class="text-lg tracking-wide font-medium text-gray-800">Total <span class="text-xs">(without tax)</span></span>
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-xl lg:text-2xl uppercase tracking-wide">{{ line.name }}</span>
+                    <div class="flex gap-4 items-center tracking-wide font-medium text-gray-800">
+                        <div class="flex flex-col gap-1">
+                            {% if line.selected_gameserver %}
+                            <span>{{ line.selected_gameserver.name }}</span>
+                            {% endif %}
+                            <span>Qty: {{ line.quantity }}</span>
                         </div>
 
-                        <div class="flex flex-col text-right">
-                            <span class="font-bold text-lg">{{ cart.total | money }} {{ store.currency }}</span>
+                        <div class="absolute flex gap-2 ml-16 {% if line.selected_gameserver %}mt-8{% endif %}">
+                            <a href="/cart/remove/{{ line.slug }}" class="flex justify-center items-center rounded-full bg-red-600 p-2 w-7 h-7"><i class="fa-solid fa-minus text-white"></i></a>
+                            <a href="/cart/add/{{ line.slug }}" class="flex justify-center items-center rounded-full bg-green-600 p-2 w-7 h-7"><i class="fa-solid fa-plus text-white"></i></a>
                         </div>
-
                     </div>
                 </div>
+            </div>
 
-                <div class="flex flex-col lg:flex-row gap-4 lg:gap-0 items-end justify-between mt-6">
-                    <a class="flex items-center gap-2 hover:text-gray-600" href="/cart/empty">
-                        <i class="fa-solid fa-trash"></i> Empty cart
-                    </a>
-                    <a href="/cart/checkout" class="rounded-2xl font-medium text-xl bg-green-700 px-4 py-2 text-white opacity-90 hover:opacity-100">Proceed to checkout</a>
-                </div>
-            {% endif %}
+            <div class="flex flex-col text-right">
+                <span class="font-bold text-xl">{{ (line.price * line.quantity) | money }} {{ store.currency }}</span>
+                {% if line.quantity > 1 %}
+                <span class="text-gray-700 text-sm lg:text-base">{{ line.price | money }} {{ store.currency }} each</span>
+                {% endif %}
+            </div>
         </div>
+        {% endfor %}
+
+        {% if cart.lines|length > 0 %}
+        <div class="mt-2 pt-2 border-t border-gray-400">
+            <div class="flex justify-between">
+
+                <div class="flex flex-col">
+                    <span class="text-lg tracking-wide font-medium text-gray-800">Total <span class="text-xs">(incl. tax)</span></span>
+                </div>
+
+                <div class="flex flex-col text-right">
+                    <span class="font-bold text-lg">{{ cart.total | money }} {{ store.currency }}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-4 lg:gap-0 items-end justify-between mt-6">
+            <a class="flex items-center gap-2 hover:text-gray-600" href="/cart/empty">
+                <i class="fa-solid fa-trash"></i> Empty cart
+            </a>
+            <a href="/cart/checkout" class="rounded-2xl font-medium text-xl bg-green-700 px-4 py-2 text-white opacity-90 hover:opacity-100">Proceed to checkout</a>
+        </div>
+        {% endif %}
     </div>
+</div>
 {% endblock %}
