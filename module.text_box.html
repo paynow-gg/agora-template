@@ -1,0 +1,15 @@
+{% set cardBgColor = "bg-gray-800" %}
+{% set cardTextColor = "text-white" %}
+{% set headerFontSize = "text-lg" %}
+{% set modulePadding = "p-4" %}
+{% set moduleMargin = "mb-4" %}
+{% set moduleRounded = "rounded-xl" %}
+
+<div class="card module {{ moduleMargin }} {{ cardBgColor }} {{ cardTextColor }} {{ moduleRounded }} overflow-hidden shadow-lg">
+    <div class="{{ modulePadding }}">
+        <div class="card-title {{ headerFontSize }}">
+            <h5>{{ module.data.settings.header }}</h5>
+        </div>
+        <div>{{ module.data.settings.content | raw }}</div>
+    </div>
+</div>
