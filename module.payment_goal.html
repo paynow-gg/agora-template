@@ -1,0 +1,73 @@
+{% set cardBgColor = "bg-gray-800" %}
+{% set cardTextColor = "text-white" %}
+{% set progressBarColor = "bg-blue-500" %}
+{% set progressBarBgColor = "bg-gray-300" %}
+{% set progressBarHeight = "h-2" %}
+{% set headerFontSize = "text-lg" %}
+{% set headerIconColor = "text-yellow-400" %}
+{% set fontStrongSize = "font-bold" %}
+{% set modulePadding = "p-4" %}
+{% set moduleMargin = "mb-4" %}
+{% set moduleRounded = "rounded-xl" %}
+{% set progressContainerRounded = "rounded-full" %}
+{% set displayPeriod = true %}
+{% set displayStripedProgressBar = module.data.settings.barStyle == "striped" %}
+{% set animateProgressBar = module.data.settings.animateGoalBar %}
+{% set allowPercentageOverflow = module.data.settings.allowPercentageOverflow %}
+
+{% set progressBarStripedStyle = displayStripedProgressBar ? "background-image: repeating-linear-gradient(45deg, #3b82f6, #3b82f6 10px, transparent 10px, transparent 20px);" : "" %}
+{% set progressBarAnimationStyle = animateProgressBar ? "animation: moveStripes 2s linear infinite;" : "" %}
+{% set progressBarSolidAnimationStyle = animateProgressBar and not displayStripedProgressBar ? "animation: pulseOpacity 2s ease-in-out infinite;" : "" %}
+{% set progressBarBaseStyle = displayStripedProgressBar ? "" : progressBarColor %}
+
+{% if module.data.settings.goalTarget is defined and module.data.settings.goalTarget > 0 %}
+    {% set goalTarget = module.data.settings.goalTarget %}
+{% else %}
+    {% set goalTarget = 1 %}
+{% endif %}
+
+{% if module.data.revenue is defined %}
+    {% set revenue = module.data.revenue %}
+{% else %}
+    {% set revenue = 0 %}
+{% endif %}
+
+{% set progressPercentage = (revenue / goalTarget * 100) %}
+{% if not allowPercentageOverflow and progressPercentage > 100 %}
+    {% set progressPercentage = 100 %}
+{% endif %}
+
+<style>
+    @keyframes moveStripes {
+        0% { background-position: 0 0; }
+        100% { background-position: 40px 0; }
+    }
+    @keyframes pulseOpacity {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+</style>
+
+<div class="card module {{ moduleMargin }} {{ cardBgColor }} {{ cardTextColor }} {{ moduleRounded }} overflow-hidden shadow-lg">
+    <div class="{{ modulePadding }} border-b border-gray-700 bg-gray-700 text-center">
+        <h5 class="{{ headerFontSize }}">
+            <i class="fas fa-star {{ headerIconColor }} mr-1"></i> 
+            {{ module.data.settings.header }}
+        </h5>
+        {% if displayPeriod %}
+            <p class="{{ fontStrongSize }}">{{ module.data.settings.period | capitalize }}</p>
+        {% endif %}
+    </div>
+    <div class="{{ modulePadding }}">
+        <div class="w-full {{ progressBarBgColor }} {{ progressContainerRounded }}">
+            <div class="progress-bar {{ progressBarBaseStyle }} {{ progressBarHeight }} {{ progressContainerRounded }}" role="progressbar" style="width: {{ progressPercentage ~ '%' }}; {{ progressBarStripedStyle }} {{ progressBarAnimationStyle }} {{ progressBarSolidAnimationStyle }}"></div>
+        </div>
+        <p class="mt-2 text-center">
+            {% if module.data.settings.displayAbsoluteGoalAmount %}
+                <strong class="{{ fontStrongSize }}">{{ revenue|money_store_currency }} / {{ goalTarget|money_store_currency }}</strong> ({{ progressPercentage }}%)
+            {% else %}
+                {{ progressPercentage }}% {{ __("completed") }}
+            {% endif %}
+        </p>
+    </div>
+</div>
