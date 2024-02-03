@@ -1,0 +1,48 @@
+{% set bgColor = "bg-gray-800" %}
+{% set headerBgColor = "bg-gray-700" %}
+{% set headerTextColor = "text-gray-400" %}
+{% set inputBorderColor = "border-gray-300" %}
+{% set inputTextColor = "text-gray-500" %}
+{% set inputFocusBorderColor = "focus:border-indigo-500" %}
+{% set inputFocusRingColor = "focus:ring-indigo-500" %}
+{% set buttonBgColor = "bg-blue-600" %}
+{% set buttonHoverBgColor = "hover:bg-blue-700" %}
+{% set buttonTextColor = "text-white" %}
+{% set errorBgColor = "bg-red-100" %}
+{% set errorBorderColor = "border-red-400" %}
+{% set errorTextColor = "text-red-700" %}
+{% set successBgColor = "bg-green-100" %}
+{% set successBorderColor = "border-green-400" %}
+{% set successTextColor = "text-green-700" %}
+{% set shadowStyle = "shadow" %}
+{% set fontBold = "font-bold" %}
+{% set roundedStyle = "rounded-xl" %}
+{% set spacing = "space-x-2" %}
+
+<div class="{{ shadowStyle }} {{ bgColor }} {{ buttonTextColor }} {{ roundedStyle }} overflow-hidden">
+    <div class="flex items-center {{ spacing }} p-4 {{ roundedStyle }} {{ headerBgColor }}">
+        <i class="fas fa-wallet {{ headerTextColor }}"></i>
+        <h2 class="text-xl {{ fontBold }}">{{ module.data.settings.header }}</h2>
+    </div>
+
+    <div class="px-4 pt-4 pb-2">
+        <form action='/module/giftcard_balance' method='post'>
+            <input type="text" autocomplete="off" name="card_number" placeholder="Enter Code" value="{{ module.data.giftCard ? module.data.giftCard.code : '' }}" class="w-full p-2 border {{ inputTextColor }} {{ inputBorderColor }} {{ roundedStyle }} {{ inputFocusBorderColor }} {{ inputFocusRingColor }}" />
+            <div class="mt-4 mb-4">
+                <button class="w-full py-2 px-4 {{ buttonBgColor }} {{ buttonTextColor }} {{ fontBold }} {{ roundedStyle }} {{ buttonHoverBgColor }}">Check Giftcard</button>
+            </div>
+        </form>
+    </div>
+
+    {% if module.data.error %}
+        <div class="mt-4 p-4 {{ errorBgColor }} {{ errorBorderColor }} {{ errorTextColor }}">
+            <p>{{ module.data.error }}</p>
+        </div>
+    {% endif %}
+
+    {% if module.data.giftCard %}
+        <div class="mt-4 p-4 {{ successBgColor }} {{ successBorderColor }} {{ successTextColor }}">
+            <p>Your giftcard balance is <b>{{ module.data.giftCard.balance|money_store_currency }}</b>.</p>
+        </div>
+    {% endif %}
+</div>
