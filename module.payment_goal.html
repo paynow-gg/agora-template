@@ -21,20 +21,20 @@
 {% set progressBarBaseStyle = displayStripedProgressBar ? "" : progressBarColor %}
 
 {% if module.data.settings.goalTarget is defined and module.data.settings.goalTarget > 0 %}
-    {% set goalTarget = module.data.settings.goalTarget %}
+{% set goalTarget = module.data.settings.goalTarget %}
 {% else %}
-    {% set goalTarget = 1 %}
+{% set goalTarget = 1 %}
 {% endif %}
 
 {% if module.data.revenue is defined %}
-    {% set revenue = module.data.revenue %}
+{% set revenue = module.data.revenue %}
 {% else %}
-    {% set revenue = 0 %}
+{% set revenue = 0 %}
 {% endif %}
 
 {% set progressPercentage = (revenue / goalTarget * 100) %}
 {% if not allowPercentageOverflow and progressPercentage > 100 %}
-    {% set progressPercentage = 100 %}
+{% set progressPercentage = 100 %}
 {% endif %}
 
 <style>
@@ -51,11 +51,11 @@
 <div class="card module {{ moduleMargin }} {{ cardBgColor }} {{ cardTextColor }} {{ moduleRounded }} overflow-hidden shadow-lg">
     <div class="{{ modulePadding }} border-b border-gray-700 bg-gray-700 text-center">
         <h5 class="{{ headerFontSize }}">
-            <i class="fas fa-star {{ headerIconColor }} mr-1"></i> 
+            <i class="fas fa-star {{ headerIconColor }} mr-1"></i>
             {{ module.data.settings.header }}
         </h5>
         {% if displayPeriod %}
-            <p class="{{ fontStrongSize }}">{{ module.data.settings.period | capitalize }}</p>
+        <p class="{{ fontStrongSize }}">{{ module.data.settings.period | capitalize }}</p>
         {% endif %}
     </div>
     <div class="{{ modulePadding }}">
@@ -64,9 +64,9 @@
         </div>
         <p class="mt-2 text-center">
             {% if module.data.settings.displayAbsoluteGoalAmount %}
-                <strong class="{{ fontStrongSize }}">{{ revenue|money_store_currency }} / {{ goalTarget|money_store_currency }}</strong> ({{ progressPercentage }}%)
+            <strong class="{{ fontStrongSize }}">{{ revenue|money_store_currency }} / {{ goalTarget|money_store_currency }}</strong> ({{ progressPercentage }}%)
             {% else %}
-                {{ progressPercentage }}% {{ __("completed") }}
+            {{ progressPercentage }}% {{ __("completed") }}
             {% endif %}
         </p>
     </div>

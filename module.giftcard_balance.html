@@ -35,14 +35,14 @@
     </div>
 
     {% if module.data.error %}
-        <div class="mt-4 p-4 {{ errorBgColor }} {{ errorBorderColor }} {{ errorTextColor }}">
-            <p>{{ module.data.error }}</p>
-        </div>
+    <div class="mt-4 p-4 {{ errorBgColor }} {{ errorBorderColor }} {{ errorTextColor }}">
+        <p>{{ module.data.error }}</p>
+    </div>
     {% endif %}
 
     {% if module.data.giftCard %}
-        <div class="mt-4 p-4 {{ successBgColor }} {{ successBorderColor }} {{ successTextColor }}">
-            <p>Your giftcard balance is <b>{{ module.data.giftCard.balance|money_store_currency }}</b>.</p>
-        </div>
+    <div class="mt-4 p-4 {{ successBgColor }} {{ successBorderColor }} {{ successTextColor }}">
+        <p>Your giftcard balance is <b>{{ module.data.giftCard.balance|money_store_currency }}</b>.</p>
+    </div>
     {% endif %}
 </div>

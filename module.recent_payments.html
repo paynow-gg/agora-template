@@ -16,40 +16,40 @@
 
     <div class="p-4">
         {% if module.data.orders %}
-            <ul class="space-y-4">
-                {% for order in module.data.orders|slice(0, module.data.settings.displayLimit) %}
-                    <li class="{% if loop.index != 1 %} border-t {{ borderColor }} pt-4 {% endif %}">
-                        <div class="flex items-start space-x-3">
-                            {% if order.customer and order.customer.steam %}
-                                <img src="{{ order.customer.steam.avatar_url }}" alt="Avatar" class="w-12 h-12 rounded-full flex-shrink-0 object-cover">
-                                <div>
-                                    <p class="font-semibold text-lg">{{ order.customer.steam.name ?? order.customer.name }}</p>
-                                    {% if module.data.settings.displayPriceOfPurchase %}
-                                        <p class="{{ totalAmountColor }}">{{ order.total_amount != 0 ? order.total_amount | money_store_currency : "FREE" }}</p>
-                                    {% endif %}
-                                    {% if module.data.settings.displayPurchasedProduct %}
-                                        <ul class="space-y-1 my-2">
-                                            {% for line in order.lines %}
-                                                <li class="flex items-center space-x-2">
-                                                    {% if line.product_image_url %}
-                                                        <img src="{{ line.product_image_url }}" alt="Product Image" class="w-6 h-6 rounded">
-                                                    {% endif %}
-                                                    <p class="{{ itemTextColor }}">{{ line.product_name }}</p>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                    {% if module.data.settings.displayTimeOfPurchase %}
-                                        <p class="text-sm {{ itemDateColor }}">Purchased {{ order.completed_at | time_diff }}</p>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+        <ul class="space-y-4">
+            {% for order in module.data.orders|slice(0, module.data.settings.displayLimit) %}
+            <li class="{% if loop.index != 1 %} border-t {{ borderColor }} pt-4 {% endif %}">
+                <div class="flex items-start space-x-3">
+                    {% if order.customer and order.customer.steam %}
+                    <img src="{{ order.customer.steam.avatar_url }}" alt="Avatar" class="w-12 h-12 rounded-full flex-shrink-0 object-cover">
+                    <div>
+                        <p class="font-semibold text-lg">{{ order.customer.steam.name ?? order.customer.name }}</p>
+                        {% if module.data.settings.displayPriceOfPurchase %}
+                        <p class="{{ totalAmountColor }}">{{ order.total_amount != 0 ? order.total_amount | money_store_currency : "FREE" }}</p>
+                        {% endif %}
+                        {% if module.data.settings.displayPurchasedProduct %}
+                        <ul class="space-y-1 my-2">
+                            {% for line in order.lines %}
+                            <li class="flex items-center space-x-2">
+                                {% if line.product_image_url %}
+                                <img src="{{ line.product_image_url }}" alt="Product Image" class="w-6 h-6 rounded">
+                                {% endif %}
+                                <p class="{{ itemTextColor }}">{{ line.product_name }}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if module.data.settings.displayTimeOfPurchase %}
+                        <p class="text-sm {{ itemDateColor }}">Purchased {{ order.completed_at | time_diff }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
         {% else %}
-            <p class="{{ itemTextColor }} text-center py-8">No recent orders to display.</p>
+        <p class="{{ itemTextColor }} text-center py-8">No recent orders to display.</p>
         {% endif %}
     </div>
 </div>
