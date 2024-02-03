@@ -1,0 +1,46 @@
+{% set moduleBgColor = "bg-gray-800" %}
+{% set moduleTextColor = "text-white" %}
+{% set moduleBorderColor = "border-gray-700" %}
+{% set moduleShadow = "shadow-lg" %}
+{% set avatarSize = "w-16 h-16" %}
+{% set defaultAvatar = "https://i.imgur.com/JqSs4NM.png" %}
+{% set headerIconColor = "text-yellow-400" %}
+{% set headerFontSize = "text-lg" %}
+{% set bodyFontSize = "text-md" %}
+{% set currencyFontSize = "text-sm" %}
+{% set listPadding = "py-2" %}
+
+<div class="module {{ moduleBgColor }} {{ moduleTextColor }} {{ moduleShadow }} rounded-xl overflow-hidden">
+    <div class="p-4 border-b {{ moduleBorderColor }} bg-gray-700">
+        <h2 class="{{ headerFontSize }} text-center"><i class="fas fa-star {{ headerIconColor }} mr-1"></i> {{ module.data.settings.header }}</h2>
+    </div>
+    <div class="module__body p-4">
+        {% for customer in module.data.customers|slice(0, module.data.settings.limit) %}
+            <div class="flex items-center {{ listPadding }}">
+                <img src="{{ customer.steam.avatarUrl ?: defaultAvatar }}" alt="Avatar" class="{{ avatarSize }} rounded-full mr-3">
+                <div>
+                    <p class="font-semibold">{{ customer.steam.name ?? customer.name }}</p>
+                    {% if module.data.settings.displayCustomerSpendAmount %}
+                        <p class="{{ bodyFontSize }}">
+                            {% if customer.stats.total_spend_amount_gross and module.data.settings.field == 'total_spend_amount_gross' %}
+                                Spent {{ customer.stats.total_spend_amount_gross | money_store_currency }}
+                            {% elseif customer.stats.total_spend_amount_net and module.data.settings.field == 'total_spend_amount_net' %}
+                                Spent {{ customer.stats.total_spend_amount_net | money_store_currency }}
+                            {% elseif customer.stats.average_spend_amount_gross and module.data.settings.field == 'average_spend_amount_gross' %}
+                                Spent {{ customer.stats.average_spend_amount_gross | money_store_currency }}
+                            {% elseif customer.stats.average_spend_amount_net and module.data.settings.field == 'average_spend_amount_net' %}
+                                Spent {{ customer.stats.average_spend_amount_net | money_store_currency }}
+                            {% elseif customer.stats.total_payments and module.data.settings.field == 'total_payments' %}
+                                Made {{ customer.stats.total_payments }} Payments
+                            {% else %}
+                                Data not available
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <p class="{{ bodyFontSize }} text-center">No top customers to display.</p>
+        {% endfor %}
+    </div>
+</div>
