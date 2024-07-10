@@ -3,9 +3,22 @@
     "updates": {
         "supported": true,
         "version_check_supported": true,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "github_url": "https://github.com/paynow-gg/agora-template",
         "github_branch": "main"
     },
-    "config": []
+    "config": [
+        {
+            "header": "General Options",
+            "options": [
+                {
+                    "id": "index",
+                    "name": "Index Page Content",
+                    "default": "<p>Welcome to the store!</p>",
+                    "description": "The text you see on the home page.",
+                    "type": "rich-text"
+                }
+            ]
+        }
+    ]
 }
