@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{{ favicon }}">
 
     <script src="https://kit.fontawesome.com/9f19093a36.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script src="https://templates-cdn.paynow.gg/templates/214207081106907136/gifting.js"></script>
 
     <script>
@@ -118,12 +118,14 @@
                     </li>
                     {% endfor %}
 
+                    {% if store.game != "minecraft" and store.game != "minecraft_offline" %}
                     <li class="text-bold uppercase font-black hover:text-gray-400">
                         <a href="/subscriptions" {% if request.path=="/subscriptions" %}
                            class="text-primary hover:text-primary" {% endif %}>
                             My Subscriptions
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
 
@@ -154,7 +156,7 @@
                                     {% endif %}
                                 </span>
                         </div>
-                        <img class="h-14 rounded-2xl" alt="Avatar" src="{{ customer.steam.avatar_url }}" />
+                        <img class="h-14 rounded-2xl" alt="Avatar" src="{{ customer.profile.avatar_url }}" />
                     </div>
                 </div>
             </a>
@@ -175,10 +177,10 @@
                 <div class="shadow bg-gray-800 text-white hover:bg-gray-700 rounded-xl p-2">
                     <div class="flex justify-between items-center pr-2">
                         <div class="flex gap-2">
-                            <img class="h-10 rounded-2xl" alt="Avatar" src="{{ customer.steam.avatar_url }}" />
+                            <img class="h-10 rounded-2xl" alt="Avatar" src="{{ customer.profile.avatar_url }}" />
                             <div class="flex flex-col">
-                                <span class="font-medium">{{ customer.steam.name ?? customer.name }}</span>
-                                <span class="text-xs">{{ customer.steam_id ?? customer.id }}</span>
+                                <span class="font-medium">{{ customer.profile.name ?? customer.name }}</span>
+                                <span class="text-xs">{{ customer.profile.id ?? customer.id }}</span>
                             </div>
                         </div>
 
