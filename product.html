@@ -12,50 +12,50 @@
         {% endif %}
     </div>
 
-    <p class="mt-2">
+    <p class="mt-2 prose">
         {{ product.description | raw }}
 
         {% if product.stock.available == false %}
-        OUT OF STOCK
+            OUT OF STOCK
         {% endif %}
     </p>
 
     {% if available_gameservers %}
-    <div class="my-4">
-        <label for="gameServerDropdown" class="block text-sm font-medium text-gray-700">
-            Select a Game Server
-        </label>
-        <div class="mt-1 relative">
-            <select id="gameServerDropdown" name="gameServer" class="form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white shadow-md">
-                {% for gameServer in available_gameservers %}
-                <option value="{{ gameServer.id }}">{{ gameServer.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="my-4">
+            <label for="gameServerDropdown" class="block text-sm font-medium text-gray-700">
+                Select a Game Server
+            </label>
+            <div class="mt-1 relative">
+                <select id="gameServerDropdown" name="gameServer" class="form-select block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white shadow-md">
+                    {% for gameServer in available_gameservers %}
+                        <option value="{{ gameServer.id }}">{{ gameServer.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
-    </div>
     {% endif %}
 
     <div class="mt-4">
         <div id="mainActions" class="mt-2 flex gap-2">
             {% if product.allow_subscription %}
-            <button onclick="subscribeToProduct();" class="rounded-2xl font-medium text-xl bg-green-700 px-4 py-2 text-white opacity-90 hover:opacity-100">Subscribe</a>
-                {% endif %}
-                {% if not template.SubOnlyWithGifting and product.allow_one_time_purchase %}
+                <button onclick="subscribeToProduct();" class="rounded-2xl font-medium text-xl bg-green-700 px-4 py-2 text-white opacity-90 hover:opacity-100">Subscribe</a>
+            {% endif %}
+            {% if not template.SubOnlyWithGifting and product.allow_one_time_purchase %}
                 <button onclick="addProductToCart();" class="rounded-2xl font-medium text-xl bg-primary px-4 py-2 text-white opacity-90 hover:opacity-100">Add to Cart</a>
-                    {% endif %}
-                    {% if product.allow_one_time_purchase and (not template.SubOnlyWithGifting or template.SubOnlyWithGifting) %}
-                    <button id="giftButton" onclick="toggleGiftActions();" class="rounded-2xl font-medium text-xl bg-orange-500 px-4 py-2 text-white opacity-90 hover:opacity-100">Gift</button>
-                    {% endif %}
+            {% endif %}
+            {% if product.allow_one_time_purchase and (not template.SubOnlyWithGifting or template.SubOnlyWithGifting) and store.game != "minecraft" and store.game != "minecraft_offline" %}
+                <button id="giftButton" onclick="toggleGiftActions();" class="rounded-2xl font-medium text-xl bg-orange-500 px-4 py-2 text-white opacity-90 hover:opacity-100">Gift</button>
+            {% endif %}
         </div>
 
         <div id="giftActions" class="hidden mt-2 flex gap-2">
             <input type="text" id="steamidInput" placeholder="Enter SteamID64" class="border rounded px-3 py-2">
             <button id="purchaseFromGift" onclick="handlePurchase();"
-                    class="rounded-2xl font-medium text-xl bg-primary px-4 py-2 text-white opacity-90 hover:opacity-100">
+                class="rounded-2xl font-medium text-xl bg-primary px-4 py-2 text-white opacity-90 hover:opacity-100">
                 Purchase
             </button>
             <button id="closeGift" onclick="toggleGiftActions();"
-                    class="rounded-2xl font-medium text-xl bg-red-500 px-4 py-2 text-white opacity-90 hover:opacity-100">
+                class="rounded-2xl font-medium text-xl bg-red-500 px-4 py-2 text-white opacity-90 hover:opacity-100">
                 Close
             </button>
         </div>
