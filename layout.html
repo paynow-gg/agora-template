@@ -19,7 +19,18 @@
 				extend: {
 					colors: {
 						primary: '#8549e6'
-					}
+					},
+                    typography: {
+                        DEFAULT: {
+                            css: {
+                                // Make sure empty paragraphs take up space
+                                'p:empty, p:has(:only-child:empty)': {
+                                    minHeight: '1em',
+                                    marginBottom: '1em',
+                                },
+                            },
+                        }
+                    }
 				}
 			}
 		}
