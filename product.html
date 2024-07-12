@@ -12,13 +12,15 @@
         {% endif %}
     </div>
 
-    <p class="mt-2 prose">
+    <div class="mt-2 prose">
         {{ product.description | raw }}
 
         {% if product.stock.available == false %}
-            OUT OF STOCK
+            <span>
+                OUT OF STOCK
+            </span>
         {% endif %}
-    </p>
+    </div>
 
     {% if available_gameservers %}
         <div class="my-4">
