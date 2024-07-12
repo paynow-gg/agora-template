@@ -3,7 +3,7 @@
     "updates": {
         "supported": true,
         "version_check_supported": true,
-        "version": "1.0.1",
+        "version": "1.0.2",
         "github_url": "https://github.com/paynow-gg/agora-template",
         "github_branch": "main"
     },
